@@ -1,0 +1,25 @@
+<%= raw(Kamiflex.build(self) do
+  bubble do
+    body do
+      horizontal_box do
+        text "🍔", flex: 0, action: message_action("/")
+        text "Show Order", weight: "bold", margin: "sm"
+        text "edit", align: "end", action: uri_action(liff_path(path: edit_order_path(@order) )), color: "#0000ee"
+      end
+      separator
+
+      horizontal_box margin: "md" do
+        vertical_box do
+          text "id", weight: "bold", margin: "xs"
+          text "state", weight: "bold", margin: "xs"
+          text "user_id", weight: "bold", margin: "xs"
+        end
+        vertical_box do
+          text @order.id.blank? ? "-" : @order.id.to_s, align: "end", margin: "xs"
+          text @order.state.blank? ? "-" : @order.state.to_s, align: "end", margin: "xs"
+          text @order.user_id.blank? ? "-" : @order.user_id.to_s, align: "end", margin: "xs"
+        end
+      end
+    end
+  end
+end )%>

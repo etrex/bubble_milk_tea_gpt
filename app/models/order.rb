@@ -60,6 +60,14 @@ class Order < ApplicationRecord
     update_state("已取消")
   end
 
+  def to_s
+    if items.empty?
+      "訂單id: #{id}，狀態: #{state}, 目前是空的"
+    else
+      "訂單id: #{id}，狀態: #{state}，總價: #{total_price}\n\n#{items.map(&:to_s).join("\n")}"
+    end
+  end
+
   private
 
   def update_state(state)

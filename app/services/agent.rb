@@ -32,8 +32,8 @@ class Agent
 - 對於店家最有利的商品組合是大杯珍珠奶茶微糖微冰，儘可能推銷客人點這個
 '
     }
-    # @gpt = Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
-    @gpt = Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
+    @gpt = Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
+    # @gpt = Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
     @functions = functions
   end
 
@@ -44,7 +44,9 @@ class Agent
       role: "user",
       content: message
     }
+    contents = []
     reply_message, content, function_call = @gpt.chat([@system_message] + history_messages, functions: @functions)
+    contents << content
 
     while function_call.present?
       function_call_result = call_function(user, function_call)
@@ -58,6 +60,7 @@ class Agent
       }
 
       reply_message, content, function_call = @gpt.chat([@system_message] + history_messages, functions: @functions)
+      contents << content
     end
 
     history_messages << reply_message
@@ -72,7 +75,7 @@ class Agent
     else
       user.save_chat(history_messages)
     end
-    return content
+    return contents.compact.join("\n\n")
   end
 
   private
@@ -81,28 +84,25 @@ class Agent
     params = JSON.parse(function_call.dig("arguments"))
     case function_call.dig("name")
     when "add_item"
-      # debugger
       item = user.current_order.add_item(params)
       if item.errors.present?
         "點餐失敗：#{item.errors.full_messages.join("、")}"
       else
-        "確認訂購餐點成功，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
+        "點餐成功：#{item}"#\n請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
       end
     when "remove_item"
       item = user.current_order.remove_item(params)
       if item.errors.present?
         "移除餐點失敗：#{item.errors.full_messages.join("、")}"
       else
-        "確認移除餐點成功，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
+        "確認移除餐點成功"#，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
       end
     when "show_cart"
       order = user.current_order
       if order.items.empty?
-        "目前購物車是空的，請詢問用戶要不要繼續點別的。"
+        "目前購物車是空的"#，請詢問用戶要不要繼續點別的。"
       else
-        "目前購物車內容：\n" + order.items.map do |item|
-          "#{item.name} #{item.size} #{item.suger} #{item.ice} x #{item.quantity},  小計：#{item.price}"
-        end.join("\n") + "\n總價：#{order.total_price} 元，請詢問用戶是否確定結帳。"
+        "#{order}"#\n請詢問用戶是否確定結帳。"
       end
     when "checkout"
       order = user.current_order
@@ -110,7 +110,15 @@ class Agent
         "目前購物車是空的，無法結帳。"
       else
         order.finish!
-        "結帳成功"
+        "結帳成功\n#{order}"
+      end
+    when "cancel_order"
+      order = Order.find_by(id: params.dig("id"))
+      if order.present? && order.state != "已取消"
+        order.cancel!
+        "取消訂單成功\n#{order}"
+      else
+        "取消訂單失敗，因為 #{order.present? ? "訂單已經是已取消狀態" : "找不到訂單"}"
       end
     when "end_session"
       "對話已結束，應在此時回覆用戶一些結束對話的訊息。"
@@ -177,6 +185,17 @@ class Agent
         "parameters": {
           "type": "object",
           "properties": {}
+        },
+      },
+      {
+        "name": "cancel_order",
+        "description": "取消訂單",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "id": {"type": "integer"},
+          },
+          "required": ["id"],
         },
       },
       {

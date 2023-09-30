@@ -66,4 +66,8 @@ class Item < ApplicationRecord
   def price
     unit_price.to_i * quantity.to_i
   end
+
+  def to_s
+    "item ##{id}: #{name} #{size} #{suger} #{ice}, $#{unit_price} x #{quantity} = $#{price}"
+  end
 end

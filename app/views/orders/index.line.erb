@@ -1,0 +1,26 @@
+<%= raw(Kamiflex.build(self) do
+  bubble do
+    body do
+      horizontal_box do
+        text "🍔", flex: 0, action: message_action("/")
+        text "Orders", weight: "bold", margin: "sm"
+        text "new", align: "end", action: uri_action(liff_path(path: new_order_path)), color: "#0000ee"
+      end
+      separator
+      if @orders.present?
+        vertical_box margin: "lg" do
+          horizontal_box margin: "lg" do
+            text "State", weight: "bold"
+            text "action", align: "end"
+          end
+          horizontal_box @orders, margin: "lg" do |order|
+            text order.state, action: message_action("GET /orders/#{order.id}")
+            text "❌", align: "end", action: message_action("DELETE /orders/#{order.id}")
+          end
+        end
+      else
+        text "沒有目前內容", margin: "lg"
+      end
+    end
+  end
+end )%>
