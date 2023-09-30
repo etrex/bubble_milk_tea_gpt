@@ -1,25 +1,34 @@
 <%= raw(Kamiflex.build(self) do
-  bubble do
+  bubble size: 'giga' do
+    header do
+      text "訂單概覽", weight: "bold", size: "xl", align: "center"
+    end
+
     body do
       horizontal_box do
-        text "🍔", flex: 0, action: message_action("/")
-        text "Orders", weight: "bold", margin: "sm"
-        text "new", align: "end", action: uri_action(liff_path(path: new_order_path)), color: "#0000ee"
+        text "id", weight: "bold", margin: "sm", flex: 2
+        text "狀態", weight: "bold", margin: "sm", flex: 2
+        text "數量", weight: "bold", margin: "sm", flex: 2
+        text "總價", weight: "bold", margin: "sm", flex: 2
+        text " ", align: "end"
       end
-      separator
+
+      separator margin: "lg"
+
       if @orders.present?
         vertical_box margin: "lg" do
-          horizontal_box margin: "lg" do
-            text "State", weight: "bold"
-            text "action", align: "end"
-          end
-          horizontal_box @orders, margin: "lg" do |order|
-            text order.state, action: message_action("GET /orders/#{order.id}")
-            text "❌", align: "end", action: message_action("DELETE /orders/#{order.id}")
+          @orders.each do |order|
+            horizontal_box margin: "md", action: message_action(order_path(order)) do
+              text "#{order.id}", weight: "bold", flex: 2, action: message_action(order_path(order)), color: "#0000ee"
+              text order.state, weight: "bold", flex: 2
+              text "#{order.total_quantity}", flex: 2
+              text "$#{order.total_price}", flex: 2
+              text "➖", align: "end", action: message_action("DELETE /orders/#{order.id}")
+            end
           end
         end
       else
-        text "沒有目前內容", margin: "lg"
+        text "目前沒有訂單資訊", margin: "lg", align: "center", weight: "bold"
       end
     end
   end

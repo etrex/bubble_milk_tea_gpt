@@ -1,20 +1,19 @@
 <%= raw(Kamiflex.build(self) do
   bubble size: 'giga' do
-    header do
-      text "#{服務名稱} 訂單 #{@order.id} #{@order.state}", weight: "bold", size: "xl"
-    end
-
     body do
-      horizontal_box do
+      text "#{服務名稱} 訂單 #{@order.id}", wrap: true, weight: :bold
+      separator color: "#cccccc"
+      horizontal_box margin: :xxl do
         text "🍹", flex: 0
         text "您點的飲料", weight: "bold", margin: "sm"
+        text "還要再點", align: "end", action: uri_action(liff_path(path: new_item_path)), color: "#0000ee"
       end
 
       separator margin: "lg"
 
-      if @order.items.present?
+      if @items.present?
         vertical_box margin: "lg" do
-          @order.items.each do |item|
+          @items.each do |item|
             horizontal_box margin: "md" do
               horizontal_box margin: "md" do
                 text item.name, flex: 0, weight: "bold"
@@ -24,6 +23,7 @@
               end
               text "x#{item.quantity}", flex: 0, align: "end"
               text " $#{item.price}", flex: 0, align: "end", weight: "bold"
+              text "➖", flex: 0, align: "end", action: message_action("DELETE /items/#{item.id}")
             end
           end
         end
@@ -39,6 +39,10 @@
         text "總數量: #{@order.total_quantity}", flex: 3, weight: "bold"
         text "總價格: $#{@order.total_price}", flex: 3, weight: "bold", align: "end"
       end
+
+      message_button "前往結帳", "前往結帳", style: "primary", margin: "lg"
+
+      text "請確認訂單無誤後繼續下一步", align: "center", margin: "lg"
     end
   end
 end )%>

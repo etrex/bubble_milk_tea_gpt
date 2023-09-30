@@ -1,0 +1,96 @@
+<%= form_with(model: item, class: 'needs-validation', novalidate: true) do |form| %>
+  <% if item.errors.any? %>
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(item.errors.count, "個錯誤") %> 導致此項目無法保存：</h4>
+      <ul>
+        <% item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group form-row align-items-center">
+    <label class="col-form-label col-2">品項</label>
+    <div class="col-10 btn-group btn-group-toggle" data-toggle="name">
+      <label class="btn btn-success">
+        <%= form.radio_button :name, "珍珠奶茶", checked: true %> 珍珠奶茶
+      </label>
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :name, "紅茶" %> 紅茶
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label class="col-form-label col-2">大小</label>
+    <div class="col-10 btn-group btn-group-toggle" data-toggle="size">
+      <label class="btn btn-success">
+        <%= form.radio_button :size, "大杯", checked: true %> 大杯
+      </label>
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :size, "中杯" %> 中杯
+      </label>
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :size, "小杯" %> 小杯
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label class="col-form-label col-2">甜度</label>
+    <div class="col-10 btn-group btn-group-toggle" data-toggle="suger">
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :suger, "全糖" %> 全糖
+      </label>
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :suger, "半糖" %> 半糖
+      </label>
+      <label class="btn btn-success">
+        <%= form.radio_button :suger, "微糖", checked: true %> 微糖
+      </label>
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :suger, "無糖" %> 無糖
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label class="col-form-label col-2">溫度</label>
+    <div class="col-10 btn-group btn-group-toggle" data-toggle="ice">
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :ice, "正常冰" %> 正常冰
+      </label>
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :ice, "少冰" %> 少冰
+      </label>
+      <label class="btn btn-success">
+        <%= form.radio_button :ice, "微冰", checked: true %> 微冰
+      </label>
+      <label class="btn btn-outline-success">
+        <%= form.radio_button :ice, "去冰" %> 去冰
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label for="quantity" class="col-form-label col-2">數量</label>
+    <div class="col-10">
+      <%= form.select :quantity, (1..10).to_a, {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit '提交', class: "btn btn-success btn-block" %>
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function(){
+  $('.btn-group-toggle label.btn').on('click', function(){
+    var $this = $(this);
+    $this.parent().find('label.btn').removeClass('btn-success').addClass('btn-outline-success');
+    $this.removeClass('btn-outline-success').addClass('btn-success');
+  });
+});
+</script>

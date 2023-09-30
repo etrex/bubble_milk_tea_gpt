@@ -1,0 +1,33 @@
+<%= raw(Kamiflex.build(self) do
+  bubble do
+    body do
+      horizontal_box do
+        text "🍔", flex: 0, action: message_action("/")
+        text "Show Item", weight: "bold", margin: "sm"
+        text "edit", align: "end", action: uri_action(liff_path(path: edit_item_path(@item) )), color: "#0000ee"
+      end
+      separator
+
+      horizontal_box margin: "md" do
+        vertical_box do
+          text "id", weight: "bold", margin: "xs"
+          text "name", weight: "bold", margin: "xs"
+          text "size", weight: "bold", margin: "xs"
+          text "suger", weight: "bold", margin: "xs"
+          text "ice", weight: "bold", margin: "xs"
+          text "quantity", weight: "bold", margin: "xs"
+          text "order_id", weight: "bold", margin: "xs"
+        end
+        vertical_box do
+          text @item.id.blank? ? "-" : @item.id.to_s, align: "end", margin: "xs"
+          text @item.name.blank? ? "-" : @item.name.to_s, align: "end", margin: "xs"
+          text @item.size.blank? ? "-" : @item.size.to_s, align: "end", margin: "xs"
+          text @item.suger.blank? ? "-" : @item.suger.to_s, align: "end", margin: "xs"
+          text @item.ice.blank? ? "-" : @item.ice.to_s, align: "end", margin: "xs"
+          text @item.quantity.blank? ? "-" : @item.quantity.to_s, align: "end", margin: "xs"
+          text @item.order_id.blank? ? "-" : @item.order_id.to_s, align: "end", margin: "xs"
+        end
+      end
+    end
+  end
+end )%>

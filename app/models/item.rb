@@ -30,9 +30,9 @@ class Item < ApplicationRecord
   # size in ["大杯", "中杯", "小杯"]
   validates :size, inclusion: { in: ["大杯", "中杯", "小杯"] }
   # suger in ["無糖", "微糖", "半糖", "少糖", "全糖"]
-  validates :suger, inclusion: { in: ["無糖", "微糖", "半糖", "少糖", "全糖"] }
+  validates :suger, inclusion: { in: ["無糖", "微糖", "半糖", "全糖"] }
   # ice in ["去冰", "微冰", "半冰", "少冰", "全冰"]
-  validates :ice, inclusion: { in: ["去冰", "微冰", "半冰", "少冰", "全冰"] }
+  validates :ice, inclusion: { in: ["去冰", "微冰", "少冰", "正常冰"] }
 
   def unit_price
     case name

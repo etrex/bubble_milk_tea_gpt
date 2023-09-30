@@ -8,7 +8,8 @@
 
         text "#{current_user.name} 您好，歡迎使用#{服務名稱}", wrap: true, size: :sm, margin: :lg
         horizontal_box margin: :lg do
-          message_button "關於我們", "關於我們", style: :primary, margin: :md
+          url_button "開始點餐", liff_path(path: new_item_path), style: :primary, margin: :md
+          message_button "查看訂單", "orders", style: :primary, margin: :md
         end
       end
     end

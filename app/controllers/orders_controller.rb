@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :debug_info
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :destroy]
 
   # GET /orders
   # GET /orders.json
@@ -11,15 +11,6 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-  end
-
-  # GET /orders/new
-  def new
-    @order = Order.create(user: current_user)
-  end
-
-  # GET /orders/1/edit
-  def edit
   end
 
   # POST /orders
@@ -35,23 +26,6 @@ class OrdersController < ApplicationController
         format.line { render :index }
       else
         format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-        format.line { render json: flex_text(@order.errors.to_s) }
-      end
-    end
-  end
-
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
-  def update
-    respond_to do |format|
-      if @order.update(order_params)
-        @orders = Order.all
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-        format.line { render :index }
-      else
-        format.html { render :edit }
         format.json { render json: @order.errors, status: :unprocessable_entity }
         format.line { render json: flex_text(@order.errors.to_s) }
       end
