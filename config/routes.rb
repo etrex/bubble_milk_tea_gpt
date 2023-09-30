@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   # 加入好友時的自我介紹訊息
   get "follow", to: "home#index"
 
-  resources :orders
+  resources :orders do
+    resources :items, only: [:create, :destroy]
+  end
 end
