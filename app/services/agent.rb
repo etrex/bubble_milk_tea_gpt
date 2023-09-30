@@ -80,16 +80,34 @@ class Agent
   def call_function(user, function_call)
     case function_call.dig("name")
     when "add_item"
-      params = function_call.dig("parameters")
-      item = Item.create(
-        order: user.orders.last,
-        name: params.dig("name"),
-        quantity: params.dig("quantity")
-        size: params.dig("size"),
-        suger: params.dig("suger"),
-        ice: params.dig("ice"),
-      )
-      "確認訂購餐點成功，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
+      item = user.current_order.add_item(function_call.dig("parameters"))
+      if item.errors.present?
+        "點餐失敗：#{item.errors.full_messages.join("、")}"
+      else
+        "確認訂購餐點成功，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
+      end
+    when "remove_item"
+      item = user.current_order.remove_item(function_call.dig("parameters"))
+      if item.errors.present?
+        "移除餐點失敗：#{item.errors.full_messages.join("、")}"
+      else
+        "確認移除餐點成功，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
+      end
+    when "show_cart"
+      order = user.current_order
+      if order.items.empty?
+        "目前購物車是空的，請詢問用戶要不要繼續點別的。"
+      else
+        "目前購物車內容：\n" + order.items.map { |item| "#{item.name} #{item.size} #{item.suger} #{item.ice} x #{item.quantity}" }.join("\n") + "\n總價：#{order.total_price} 元，請詢問用戶要不要繼續點別的。"
+      end
+    when "checkout"
+      order = user.current_order
+      if order.items.empty?
+        "目前購物車是空的，無法結帳。"
+      else
+        order.finish!
+        "結帳成功"
+      end
     when "end_session"
       "對話已結束，應在此時回覆用戶一些結束對話的訊息。"
     else
