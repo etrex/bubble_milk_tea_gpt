@@ -78,16 +78,18 @@ class Agent
   private
 
   def call_function(user, function_call)
+    params = JSON.parse(function_call.dig("arguments"))
     case function_call.dig("name")
     when "add_item"
-      item = user.current_order.add_item(function_call.dig("parameters"))
+      # debugger
+      item = user.current_order.add_item(params)
       if item.errors.present?
         "點餐失敗：#{item.errors.full_messages.join("、")}"
       else
         "確認訂購餐點成功，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
       end
     when "remove_item"
-      item = user.current_order.remove_item(function_call.dig("parameters"))
+      item = user.current_order.remove_item(params)
       if item.errors.present?
         "移除餐點失敗：#{item.errors.full_messages.join("、")}"
       else
@@ -98,7 +100,9 @@ class Agent
       if order.items.empty?
         "目前購物車是空的，請詢問用戶要不要繼續點別的。"
       else
-        "目前購物車內容：\n" + order.items.map { |item| "#{item.name} #{item.size} #{item.suger} #{item.ice} x #{item.quantity}" }.join("\n") + "\n總價：#{order.total_price} 元，請詢問用戶要不要繼續點別的。"
+        "目前購物車內容：\n" + order.items.map do |item|
+          "#{item.name} #{item.size} #{item.suger} #{item.ice} x #{item.quantity},  小計：#{item.price}"
+        end.join("\n") + "\n總價：#{order.total_price} 元，請詢問用戶是否確定結帳。"
       end
     when "checkout"
       order = user.current_order

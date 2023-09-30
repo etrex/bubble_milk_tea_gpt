@@ -25,6 +25,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[line]
 
   has_many :oauth_providers
+  has_many :orders
 
   def self.from_omniauth(auth)
     case auth.provider
@@ -70,4 +71,11 @@ class User < ApplicationRecord
     chat
   end
 
+  def current_order
+    order = orders.last
+
+    return order if order.present? && order.state == "進行中"
+
+    orders.create
+  end
 end

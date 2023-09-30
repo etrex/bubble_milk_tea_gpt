@@ -64,6 +64,6 @@ class Item < ApplicationRecord
   end
 
   def price
-    unit_price * quantity
+    unit_price.to_i * quantity.to_i
   end
 end
