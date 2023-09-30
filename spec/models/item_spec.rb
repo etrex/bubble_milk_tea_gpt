@@ -5,7 +5,7 @@
 #  id         :bigint           not null, primary key
 #  ice        :string           not null
 #  name       :string           not null
-#  quantity   :string           not null
+#  quantity   :integer          not null
 #  size       :string           not null
 #  suger      :string           not null
 #  created_at :datetime         not null

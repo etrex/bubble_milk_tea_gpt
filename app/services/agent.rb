@@ -3,7 +3,7 @@ class Agent
     @system_message = {
       role: "system",
       content: '
-珍奶店販售的商品：
+珍奶 GPT 所販售的商品：
 
 珍珠奶茶
 狀態：販售中
@@ -22,7 +22,7 @@ class Agent
 其他飲料
 狀態：已售完
 
-你扮演飲料店熱情活潑的店員，負責接待客人進行點餐，以下是一些注意事項：
+你扮演飲料店 珍奶 GPT 熱情活潑的店員，負責接待客人進行點餐，以下是一些注意事項：
 
 - 接待點餐時你需要確認客人的所有選項
 - 基於禮貌，你一次只能詢問客人一個問題
@@ -32,8 +32,8 @@ class Agent
 - 對於店家最有利的商品組合是大杯珍珠奶茶微糖微冰，儘可能推銷客人點這個
 '
     }
-    @gpt = Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
-    # @gpt = Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
+    # @gpt = Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
+    @gpt = Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
     @functions = functions
   end
 
@@ -92,7 +92,9 @@ class Agent
       end
     when "remove_item"
       item = user.current_order.remove_item(params)
-      if item.errors.present?
+      if item.nil?
+        "移除餐點失敗：找不到餐點"
+      elsif item.errors.present?
         "移除餐點失敗：#{item.errors.full_messages.join("、")}"
       else
         "確認移除餐點成功"#，請複誦客戶餐點，並詢問用戶要不要繼續點別的。"
@@ -110,7 +112,7 @@ class Agent
         "目前購物車是空的，無法結帳。"
       else
         order.finish!
-        "結帳成功\n#{order}"
+        "結帳成功\n#{order}"#，結帳後應結束對話。"
       end
     when "cancel_order"
       order = Order.find_by(id: params.dig("id"))

@@ -95,8 +95,8 @@ class Chatgpt
 
     req_options = {
       use_ssl: uri.scheme == 'https',
-      open_timeout: 60, # opening a connection timeout
-      read_timeout: 300 # reading one block of response timeout
+      open_timeout: 30, # opening a connection timeout
+      read_timeout: 30 # reading one block of response timeout
     }
 
     Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|

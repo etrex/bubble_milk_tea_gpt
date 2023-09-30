@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_110140) do
     t.string "size", null: false
     t.string "suger", null: false
     t.string "ice", null: false
-    t.string "quantity", null: false
+    t.integer "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_items_on_order_id"

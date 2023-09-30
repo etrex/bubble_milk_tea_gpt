@@ -1,11 +1,10 @@
 <%= raw(Kamiflex.build(self) do
   bubble size: 'giga' do
-    header do
-      text "#{服務名稱} 訂單 #{@order.id} #{@order.state}", weight: "bold", size: "xl"
-    end
 
     body do
-      horizontal_box do
+      text "#{服務名稱} 訂單 #{@order.id} #{@order.state}", wrap: true, weight: :bold
+      separator color: "#cccccc"
+      horizontal_box margin: :xxl do
         text "🍹", flex: 0
         text "您點的飲料", weight: "bold", margin: "sm"
       end

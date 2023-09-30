@@ -29,12 +29,12 @@ class LineEventProcessor
       }
     end
 
-    if current_user&.orders&.last&.to_s.present?
+    if current_user.chat.present?
       response = [
         response,
         {
           type: "text",
-          text: "除錯資訊：\n" + current_user.orders.last.to_s
+          text: "【除錯資訊】 歷史訊息數量 #{current_user.chat.count}"
         }
       ]
     end

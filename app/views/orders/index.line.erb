@@ -1,21 +1,18 @@
 <%= raw(Kamiflex.build(self) do
   bubble size: 'giga' do
-    header do
-      text "訂單概覽", weight: "bold", size: "xl", align: "center"
-    end
-
     body do
-      horizontal_box do
-        text "id", weight: "bold", margin: "sm", flex: 2
-        text "狀態", weight: "bold", margin: "sm", flex: 2
-        text "數量", weight: "bold", margin: "sm", flex: 2
-        text "總價", weight: "bold", margin: "sm", flex: 2
-        text " ", align: "end"
-      end
-
-      separator margin: "lg"
+      text "#{服務名稱} 訂單概覽", wrap: true, weight: :bold
+      separator color: "#cccccc"
 
       if @orders.present?
+        horizontal_box margin: :xxl do
+          text "id", weight: "bold", margin: "sm", flex: 2
+          text "狀態", weight: "bold", margin: "sm", flex: 2
+          text "數量", weight: "bold", margin: "sm", flex: 2
+          text "總價", weight: "bold", margin: "sm", flex: 2
+          text " ", align: "end"
+        end
+        separator margin: "lg"
         vertical_box margin: "lg" do
           @orders.each do |order|
             horizontal_box margin: "md", action: message_action(order_path(order)) do
