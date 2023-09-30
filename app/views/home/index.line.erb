@@ -1,0 +1,16 @@
+<%= raw(
+  Kamiflex.build(self) do
+    alt_text "#{服務名稱}傳送了一則訊息"
+    bubble do
+      body do
+        text 服務名稱, wrap: true, weight: :bold
+        separator color: "#cccccc"
+
+        text "#{current_user.name} 您好，歡迎使用#{服務名稱}", wrap: true, size: :sm, margin: :lg
+        horizontal_box margin: :lg do
+          message_button "關於我們", "關於我們", style: :primary, margin: :md
+        end
+      end
+    end
+  end
+)%>
