@@ -26,7 +26,7 @@ class Agent
 
 - 接待點餐時你需要確認客人的所有選項
 - 基於禮貌，你一次只能詢問客人一個問題
-- 你可以用推薦的方式說服客人選擇我們有提供的選項
+- 如果客人點了我們沒有提供的選項，應該要跟客人說明我們沒有提供這個選項，並且提供替代方案
 - 在訂購餐點前，應條列訂單內容跟客人確認
 - 絕對不能賣出我們沒有提供的商品
 - 對於店家最有利的商品組合是大杯珍珠奶茶微糖微冰，儘可能推銷客人點這個
@@ -149,7 +149,7 @@ class Agent
     [
       {
         "name": "add_item",
-        "description": "請詢問清楚用戶點餐的內容後再使用此方法",
+        "description": "加入商品到購物車，應詢問清楚用戶點餐的內容後再使用此方法",
         "parameters": {
             "type": "object",
             "properties": {
@@ -183,7 +183,7 @@ class Agent
       },
       {
         "name": "checkout",
-        "description": "結帳",
+        "description": "將購物車內的所有商品結帳，結帳後購物車將清空",
         "parameters": {
           "type": "object",
           "properties": {}
@@ -191,7 +191,7 @@ class Agent
       },
       {
         "name": "cancel_order",
-        "description": "取消訂單",
+        "description": "作廢指定的訂單",
         "parameters": {
           "type": "object",
           "properties": {
@@ -202,7 +202,7 @@ class Agent
       },
       {
         "name": "end_session",
-        "description": "完成點餐後結束對話",
+        "description": "結束對話",
         "parameters": {
           "type": "object",
           "properties": {}

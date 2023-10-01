@@ -49,7 +49,7 @@ class Order < ApplicationRecord
   end
 
   def remove_item(params)
-    items.find_id(id: params.dig("id"))&.destroy
+    items.where(id: params.dig("id")).first&.destroy
   end
 
   def finish!
