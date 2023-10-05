@@ -32,8 +32,8 @@ class Agent
 - 對於店家最有利的商品組合是大杯珍珠奶茶微糖微冰，儘可能推銷客人點這個
 '
     }
-    # @gpt = Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
-    @gpt = Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
+    @gpt = Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
+    # @gpt = Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
     @functions = functions
   end
 
