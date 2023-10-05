@@ -21,6 +21,7 @@ Bundler.require(*Rails.groups)
 module BubbleMilkTeaGpt
   class Application < Rails::Application
     config.hosts << "ngrok.etrex.tw"
+    config.hosts << "bubble-milk-tea-gpt-8ed8b99b9937.herokuapp.com"
     config.time_zone = "Taipei"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
