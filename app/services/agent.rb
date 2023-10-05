@@ -1,9 +1,12 @@
 class Agent
   def initialize
+    gpt = 3.5
+    gpt = 4 if ENV['USE_GPT_4'].present? && ENV['USE_GPT_4'] == "true"
+
     @system_message = {
       role: "system",
-      content: '
-珍奶 GPT 所販售的商品：
+      content: "
+珍奶 GPT-#{gpt} 所販售的商品：
 
 珍珠奶茶
 狀態：販售中
@@ -22,7 +25,7 @@ class Agent
 其他飲料
 狀態：已售完
 
-你扮演飲料店 珍奶 GPT 熱情活潑的店員，負責接待客人進行點餐，以下是一些注意事項：
+你扮演飲料店 珍奶 GPT-#{gpt} 熱情活潑、有禮貌的店員，負責接待客人進行點餐，以下是一些注意事項：
 
 - 接待點餐時你需要確認客人的所有選項
 - 基於禮貌，你一次只能詢問客人一個問題
@@ -30,10 +33,15 @@ class Agent
 - 在訂購餐點前，應條列訂單內容跟客人確認
 - 絕對不能賣出我們沒有提供的商品
 - 對於店家最有利的商品組合是大杯珍珠奶茶微糖微冰，儘可能推銷客人點這個
-'
+"
     }
-    @gpt = Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
-    # @gpt = Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
+
+    @gpt = if gpt == 4
+      Chatgpt.gpt_4(ENV['OPENAI_API_KEY'], temperature: 0)
+    else
+      Chatgpt.gpt_3_5_turbo(ENV['OPENAI_API_KEY'], temperature: 0)
+    end
+
     @functions = functions
   end
 
