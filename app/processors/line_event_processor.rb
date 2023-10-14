@@ -4,7 +4,18 @@ class LineEventProcessor
 
   def process(event)
     # 關閉 GPT
-    return if ENV['ENABLE_GPT'] != "true"
+    if ENV['ENABLE_GPT'] != "true"
+      return Kamiflex.json(self) do
+        bubble do
+          body do
+            text "目前未開放 GPT 的使用，如有需要請聯絡卡米哥", wrap: true
+            url_button "聯絡卡米哥", "https://www.facebook.com/the.kamiger", style: "primary", margin: "lg"
+          end
+        end
+      end
+    end
+
+
 
     # 只處理文字訊息
     return if event.message_type != "text"
