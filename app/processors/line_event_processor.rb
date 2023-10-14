@@ -3,6 +3,9 @@ class LineEventProcessor
   attr_accessor :form_authenticity_token
 
   def process(event)
+    # 關閉 GPT
+    return if ENV['ENABLE_GPT'] != "true"
+
     # 只處理文字訊息
     return if event.message_type != "text"
 
