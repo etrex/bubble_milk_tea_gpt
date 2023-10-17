@@ -26,6 +26,7 @@ class LineEventProcessor
 
     if text == "reset"
       current_user.reset_chat
+      current_user.orders.destroy_all
       return {
         type: "text",
         text: "已重置對話"

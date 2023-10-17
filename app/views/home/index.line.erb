@@ -1,7 +1,7 @@
 <%= raw(
   Kamiflex.build(self) do
     alt_text "#{服務名稱}傳送了一則訊息"
-    bubble do
+    bubble size: :giga do
       body do
         text 服務名稱, wrap: true, weight: :bold
         separator color: "#cccccc"
@@ -10,6 +10,7 @@
         horizontal_box margin: :lg do
           url_button "開始點餐", liff_path(path: new_item_path), style: :primary, margin: :md
           message_button "查看訂單", "orders", style: :primary, margin: :md
+          message_button "重置對話", "reset", style: :primary, margin: :md
         end
       end
     end
