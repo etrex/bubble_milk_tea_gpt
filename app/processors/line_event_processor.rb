@@ -33,7 +33,8 @@ class LineEventProcessor
       }
     end
 
-    agent = Agent.new
+    agent = GitlabAgent.new
+    # agent = Agent.new
 
     response = agent.chat(current_user, text)
 
