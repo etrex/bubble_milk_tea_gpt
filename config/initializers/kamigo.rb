@@ -15,5 +15,8 @@ Kamigo.setup do |config|
   # config.line_default_message = nil
 
   # When Kamigo receive a request, then Kamigo will process the request with the following processors.
-  config.line_event_processors = [Kamigo::EventProcessors::RailsRouterProcessor.new, LineEventProcessor.new]
+  config.line_event_processors = [
+    Kamigo::EventProcessors::RailsRouterProcessor.new,
+    LineEventProcessor.new
+  ]
 end

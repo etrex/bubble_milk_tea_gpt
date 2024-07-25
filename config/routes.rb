@@ -23,4 +23,7 @@ Rails.application.routes.draw do
 
   # 結帳
   get "前往結帳", to: "items#finish"
+
+  # 重置對話
+  get "reset", to: "home#reset"
 end

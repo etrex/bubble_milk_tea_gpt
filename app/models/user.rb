@@ -27,6 +27,8 @@ class User < ApplicationRecord
   has_many :oauth_providers
   has_many :orders
 
+  attr_accessor :need_reset_chat
+
   def self.from_omniauth(auth)
     case auth.provider
     when "line"
@@ -63,6 +65,8 @@ class User < ApplicationRecord
   end
 
   def save_chat(messages)
+    return reset_chat if need_reset_chat
+
     self.chat = messages
     self.save
   end
