@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>珍奶 GPT - 智慧點餐機器人</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="images/logo.jpeg">
+    <style>
+        .author-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #fff;
+        }
+        .author-info a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .author-info a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-brand img {
+            width: 32px;
+            height: 32px;
+        }
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .security-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .security-item img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        .security-item h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        .security-item p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <div class="nav-brand">
+                    <img src="images/logo.jpeg" alt="珍奶 GPT Logo">
+                    <h1>珍奶 GPT</h1>
+                </div>
+                <ul>
+                    <li><a href="#features">功能介紹</a></li>
+                    <li><a href="#usage">使用說明</a></li>
+                    <li><a href="#demo">功能展示</a></li>
+                    <li><a href="#contact">聯絡我們</a></li>
+                    <li><a href="#security">AI 安全設計</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="container">
+            <div class="hero-content">
+                <h2>智慧飲料點餐體驗</h2>
+                <p>結合 AI 對話與傳統介面的創新點餐系統，打造更智慧、更便利的飲料訂購體驗</p>
+                <div class="cta-button">
+                    <a href="https://line.me/R/ti/p/@731eztpi" class="button">立即加入好友</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="container">
+            <h2>功能介紹</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <img src="images/features/ai_chat.png" alt="AI 對話點餐介面展示">
+                    <h3>AI 對話點餐</h3>
+                    <p>透過自然對話方式完成點餐，就像與真人店員互動一樣簡單</p>
+                </div>
+                <div class="feature-card">
+                    <img src="images/features/gui_order.png" alt="圖形化點餐介面展示">
+                    <h3>圖形化介面</h3>
+                    <p>傳統的 Flex Message 與 LIFF 介面，讓您快速瀏覽並選擇商品</p>
+                </div>
+                <div class="feature-card">
+                    <img src="images/features/seamless.png" alt="無縫切換介面展示">
+                    <h3>無縫切換</h3>
+                    <p>兩種介面資料同步，隨時切換不中斷購物體驗</p>
+                </div>
+                <div class="feature-card">
+                    <img src="images/features/security.png" alt="AI 安全防護機制展示">
+                    <h3>AI 安全防護</h3>
+                    <p>完整的 AI 安全機制，防止 prompt 洩漏與惡意操縱，確保點餐體驗的安全性與可靠性</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="usage" class="container">
+            <h2>使用說明</h2>
+            <div class="usage-steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <p>加入珍奶 GPT 為 LINE 好友</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <p>選擇您喜歡的點餐方式：AI 對話或圖形介面</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <p>開始訂購您喜愛的飲品</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="container">
+            <h2>功能展示</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>AI 對話點餐</h3>
+                    <img src="images/demo/ai_chat_demo.png" alt="AI 對話式點餐功能展示，顯示與 AI 進行自然對話點餐的過程">
+                </div>
+                <div class="demo-item">
+                    <h3>圖形化介面</h3>
+                    <img src="images/demo/gui_demo.png" alt="圖形化點餐介面展示，展示 Flex Message 與 LIFF 的操作畫面">
+                </div>
+            </div>
+        </section>
+
+        <section id="security" class="container">
+            <h2>安全的 AI Agent</h2>
+            <div class="security-features">
+                <div class="security-item">
+                    <img src="images/security/prompt_protection.png" alt="Prompt 保護機制示意圖">
+                    <h3>Prompt 保護機制</h3>
+                    <p>採用多層防護設計，確保系統 prompt 不會洩漏，防止惡意用戶探測或竊取系統提示詞</p>
+                </div>
+                <div class="security-item">
+                    <img src="images/security/manipulation.png" alt="防止操縱機制示意圖">
+                    <h3>防止 AI 操縱</h3>
+                    <p>強大的防護機制確保 AI 不會被說服更改價格、提供免費商品，或執行超出點餐範圍的操作</p>
+                </div>
+                <div class="security-item">
+                    <img src="images/security/scope.png" alt="範圍限制機制示意圖">
+                    <h3>嚴格的範圍限制</h3>
+                    <p>AI 嚴格遵守預設的互動範圍，專注於點餐服務，不會處理其他不相關的要求</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="container contact">
+            <h2>聯絡我們</h2>
+            <div class="contact-text">
+                <p>親愛的使用者您好！感謝您使用珍奶 GPT。</p>
+                <p>這是一個展示 AI 技術與 LINE 機器人整合的示範專案，展現了我們在 AI 對話、資料安全、和使用者體驗方面的技術實力。</p>
+                <p>如果您對我們的技術感興趣，或想了解更多關於客製化 AI 解決方案，歡迎與我們聯繫。</p>
+            </div>
+            <div class="cta-button">
+                <a href="https://corp.kamigo.tw/#contact" class="button contact-button" target="_blank" rel="noopener">聯絡我們</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 珍奶 GPT. All rights reserved.</p>
+            <p class="author-info">由 <a href="https://corp.kamigo.tw" target="_blank" rel="noopener">卡米狗有限公司</a> 開發</p>
+        </div>
+    </footer>
+</body>
+</html>
